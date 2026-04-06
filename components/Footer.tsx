@@ -33,7 +33,7 @@ export default function Footer() {
           <li>
             <a href="https://www.youtube.com/@binet.smk4" className="text-[#cae8e8]/60 transition-colors duration-200 hover:text-secondary-container flex justify-center items-center gap-1">
               <FaYoutube/>
-              Youtuber
+              Youtube
             </a>
           </li>
         </ul>

@@ -621,7 +621,7 @@ export default function AdminDashboard() {
                 <label className="block font-display text-[0.75rem] font-bold tracking-widest uppercase text-on-surface-variant mb-2">Peran / Jabatan</label>
                 <input 
                   type="text" 
-                  placeholder="Misal: Spesialis IT" 
+                  placeholder="Misal: Spesialis Komedi" 
                   value={peranPersonil}
                   onChange={(e) => setPeranPersonil(e.target.value)}
                   disabled={uploading}
@@ -752,6 +752,7 @@ export default function AdminDashboard() {
                         <div className="font-display font-medium text-[0.9rem] text-primary truncate">{p.nama}</div>
                         <div className="font-body text-[0.75rem] text-on-surface-variant truncate">{p.role}</div>
                         <div className="font-body text-[0.75rem] text-on-surface-variant truncate">{p.asal_daerah}</div>
+                        <div className="font-body text-[0.75rem] text-on-surface-variant truncate">{p.medsos}</div>
                       </div>
                       <div className="flex flex-col gap-2">
                         <button onClick={() => { setEditingPersonilId(p.id); setNamaPersonil(p.nama); setPeranPersonil(p.role || ""); setAsalPersonil(p.asal_daerah || ""); setMedsosPersonil(p.medsos || ""); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="text-[0.7rem] uppercase tracking-wide font-bold px-2 py-1 bg-secondary-container text-on-secondary-container rounded hover:bg-secondary hover:text-on-secondary transition-colors">Edit</button>

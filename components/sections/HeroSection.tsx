@@ -1,11 +1,77 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function HeroSection() {
   const heroRef = useRef<HTMLDivElement>(null);
+  const [stats, setStats] = useState([
+    { num: "0", label: "Siswa Aktif" },
+    { num: "0", label: "Hari Belajar" },
+    { num: "0", label: "Kegiatan" },
+  ]);
+
+  // Typewriter states
+  // Typewriter states
+  const words = ["Selamat Datang\ndi Kelas Kami", "Selamat Datang\ndi Kelas Binet"];
+  const [index, setIndex] = useState(0);
+  const [subIndex, setSubIndex] = useState(0);
+  const [reverse, setReverse] = useState(false);
+  const [blink, setBlink] = useState(true);
+
+  // Typewriter effect
+  useEffect(() => {
+    if (subIndex === words[index].length + 1 && !reverse) {
+      setReverse(true);
+      return;
+    }
+
+    if (subIndex === 0 && reverse) {
+      setReverse(false);
+      setIndex((prev) => (prev + 1) % words.length);
+      return;
+    }
+
+    const timeout = setTimeout(() => {
+      setSubIndex((prev) => prev + (reverse ? -1 : 1));
+    }, Math.max(reverse ? 75 : subIndex === words[index].length ? 2000 : 150, parseInt((Math.random() * 20).toString())));
+
+    return () => clearTimeout(timeout);
+  }, [subIndex, index, reverse]);
+
+  // Blinking cursor
+  useEffect(() => {
+    const timeout2 = setTimeout(() => {
+      setBlink((prev) => !prev);
+    }, 500);
+    return () => clearTimeout(timeout2);
+  }, [blink]);
 
   useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const { supabase } = await import("@/lib/supabase");
+        
+        const [pRes, jRes, gRes] = await Promise.all([
+          supabase.from('personil_kelas').select('id', { count: 'exact', head: true }),
+          supabase.from('jadwal_pelajaran').select('hari'),
+          supabase.from('galeri').select('id', { count: 'exact', head: true })
+        ]);
+
+        // Hitung hari unik belajarnya
+        const uniqueDays = new Set(jRes.data?.map(item => item.hari) || []);
+
+        setStats([
+          { num: (pRes.count || 0).toString(), label: "Siswa Aktif" },
+          { num: (uniqueDays.size || 0).toString(), label: "Hari Belajar" },
+          { num: (gRes.count || 0).toString(), label: "Kegiatan" },
+        ]);
+      } catch (err) {
+        console.error("Gagal mengambil statistik hero:", err);
+      }
+    };
+
+    fetchStats();
+
     const obs = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
@@ -50,11 +116,26 @@ export default function HeroSection() {
 
         {/* Headline */}
         <h1
-          className="hero-animate opacity-0 translate-y-6 transition-all duration-[700ms] delay-200 font-display text-[clamp(2.5rem,5vw,4.5rem)] font-extrabold leading-[1.05] tracking-tight text-on-primary drop-shadow-[0_4px_20px_rgba(0,0,0,0.3)]"
+          className="hero-animate opacity-0 translate-y-6 transition-all duration-[700ms] delay-200 font-display text-[clamp(2.5rem,5vw,4.5rem)] font-extrabold leading-[1.1] tracking-tight text-on-primary drop-shadow-[0_4px_20px_rgba(0,0,0,0.3)] min-h-[2.2em] flex flex-col justify-center items-center"
         >
-          Selamat Datang
-          <br />
-          <span className="text-secondary-container drop-shadow-none">di Kelas Kami</span>
+          <div className="relative text-center w-full">
+            {/* Line 1: Selamat Datang */}
+            <div className="min-h-[1.2em]">
+              {words[index].substring(0, subIndex).split('\n')[0]}
+              {!words[index].substring(0, subIndex).includes('\n') && (
+                <span className={`inline-block w-[3px] md:w-[5px] h-[0.8em] bg-white ml-1 align-middle transition-opacity duration-100 ${blink ? "opacity-100" : "opacity-0"}`} />
+              )}
+            </div>
+            {/* Line 2: di Kelas Binet / Kami */}
+            <div className="min-h-[1.2em] text-secondary-container">
+              {words[index].substring(0, subIndex).includes('\n') && (
+                <>
+                  {words[index].substring(0, subIndex).split('\n')[1]}
+                  <span className={`inline-block w-[3px] md:w-[5px] h-[0.8em] bg-secondary-container ml-1 align-middle transition-opacity duration-100 ${blink ? "opacity-100" : "opacity-0"}`} />
+                </>
+              )}
+            </div>
+          </div>
         </h1>
 
         {/* Description */}
@@ -87,11 +168,7 @@ export default function HeroSection() {
         <div
           className="hero-animate opacity-0 translate-y-5 transition-all duration-[700ms] delay-[650ms] mt-5 pt-5 border-t border-white/15 w-full flex justify-center gap-8 md:gap-14"
         >
-          {[
-            { num: "36", label: "Siswa Aktif" },
-            { num: "5", label: "Hari Belajar" },
-            { num: "12", label: "Kegiatan" },
-          ].map((stat) => (
+          {stats.map((stat) => (
             <div key={stat.label}>
               <div className="font-display text-[1.75rem] md:text-[2rem] font-extrabold text-white leading-none">
                 {stat.num}

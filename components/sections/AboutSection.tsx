@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { FaInstagram } from "react-icons/fa";
+import { FaLocationDot } from "react-icons/fa6";
 
 export default function AboutSection() {
   const [personil, setPersonil] = useState<any[]>([]);
@@ -40,7 +41,7 @@ export default function AboutSection() {
       {/* Bagian Teks Header */}
       <div className="max-w-[1280px] mx-auto px-8 mb-12 text-center md:text-left">
         <span className="block font-display text-[0.7rem] font-bold tracking-[0.14em] uppercase text-secondary mb-3">
-          Tentang Kami
+          About Us
         </span>
         <h2 className="font-display text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-[1.2] text-primary mb-6 max-w-[600px]">
           Lebih dari Sekedar<br />Ruang Belajar
@@ -83,7 +84,8 @@ export default function AboutSection() {
                 </div>
                 <div className="text-sm font-body text-on-surface-variant flex flex-col gap-1.5 opacity-80 mt-auto pt-2 border-t border-outline-variant/20">
                   <div className="flex items-center gap-1.5">
-                    <span>📍</span> Asal: {member.asal_daerah}
+                    <FaLocationDot size={12} className="text-secondary/70 shrink-0" />
+                    <span>{member.asal_daerah}</span>
                   </div>
                   {member.medsos && (
                     <a 

@@ -51,7 +51,7 @@ export default function GallerySection() {
       <div className="max-w-[1280px] mx-auto">
         <div className="mb-6">
           <span className="block font-display text-[0.7rem] font-bold tracking-[0.14em] uppercase text-secondary mb-3">
-            Momen Kebersamaan
+            Class Galery
           </span>
           <h2 className="font-display text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-[1.2] text-primary">
             Galeri Kelas
