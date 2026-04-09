@@ -1,12 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { FaInstagram } from "react-icons/fa";
+import { useEffect, useState, useRef } from "react";
+import { FaInstagram, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 
 export default function AboutSection() {
   const [personil, setPersonil] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isPaused, setIsPaused] = useState(false);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const fetchPersonil = async () => {
@@ -22,7 +24,6 @@ export default function AboutSection() {
         if (data && data.length > 0) {
           setPersonil(data);
         } else {
-          // Fallback ke dummy 1 item agar tidak kosong melompong jika blm diisi
           setPersonil([{ nama: "Belum Ada Data", role: "Menunggu Input Admin", asal_daerah: "-" }]);
         }
       } catch (err) {
@@ -35,11 +36,49 @@ export default function AboutSection() {
     fetchPersonil();
   }, []);
 
+  // Auto-scroll loop
+  useEffect(() => {
+    if (loading || isPaused || personil.length < 3) return;
+
+    let animationFrameId: number;
+    const scrollContainer = scrollRef.current;
+
+    const scroll = () => {
+      if (scrollContainer) {
+        scrollContainer.scrollLeft += 0.6; // Kecepatan jalan otomatis
+
+        // Cek jika sudah sampai di tengah (karena array diduplikasi)
+        if (scrollContainer.scrollLeft >= scrollContainer.scrollWidth / 2) {
+          scrollContainer.scrollLeft = 1;
+        }
+      }
+      animationFrameId = requestAnimationFrame(scroll);
+    };
+
+    animationFrameId = requestAnimationFrame(scroll);
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [loading, isPaused, personil]);
+
+  const scrollManual = (direction: "left" | "right") => {
+    if (scrollRef.current) {
+      const scrollAmount = 320; // Satu box + gap
+      scrollRef.current.scrollBy({
+        left: direction === "left" ? -scrollAmount : scrollAmount,
+        behavior: "smooth"
+      });
+    }
+  };
+
   return (
-    <section className="py-16 bg-surface-container-low overflow-hidden relative" id="tentang">
+    <section 
+      className="py-16 bg-surface-container-low overflow-hidden relative group" 
+      id="tentang"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
       
       {/* Bagian Teks Header */}
-      <div className="max-w-[1280px] mx-auto px-8 mb-12 text-center md:text-left">
+      <div className="max-w-[1280px] mx-auto px-8 mb-12 text-center flex flex-col items-center">
         <span className="block font-display text-[0.7rem] font-bold tracking-[0.14em] uppercase text-secondary mb-3">
           About Us
         </span>
@@ -47,21 +86,38 @@ export default function AboutSection() {
           Lebih dari Sekedar<br />Ruang Belajar
         </h2>
         <p className="font-body text-base lg:text-lg font-normal leading-[1.75] text-on-surface-variant max-w-[700px]">
-          Kelas kami adalah komunitas pelajar yang saling bekerja sama, berbagi kemampuan,
-          dan tumbuh sebagai spesialis di bidang teknologi.
+          Ladies and gentlemen, welcome to our class
         </p>
       </div>
 
       {loading ? (
         <div className="text-center py-10 font-display text-on-surface-variant">Memuat profil personil...</div>
       ) : (
-        /* Bagian Slider (Marquee) */
-        <div className="relative w-full flex">
-          {/* Kontainer Marquee yang berjalan tanpa henti */}
-          <div className="animate-marquee flex w-max gap-6 px-3 hover:[animation-play-state:paused]">
-            {/* Kita menggunakan dua array gabungan [personil, personil] jika isinya banyak, agar saat scroll habis tidak terlihat patah (looping mulus) */}
-            {/* Pakai 4 set duplicate jika datanya super sedikit supaya marquee tidak putus */}
-            {[...personil, ...personil, ...personil, ...personil].slice(0, Math.max(8, personil.length * 2)).map((member, i) => (
+        <div className="relative w-full overflow-hidden">
+          {/* Navigation Buttons - Muncul saat hover */}
+          <button 
+            onClick={() => scrollManual("left")}
+            className="absolute left-4 top-1/2 -translate-y-1/2 z-30 w-12 h-12 bg-white/20 backdrop-blur-md border border-white/30 rounded-full flex items-center justify-center text-primary shadow-xl opacity-0 group-hover:opacity-100 transition-all duration-500 hover:bg-primary hover:text-white"
+            aria-label="Previous"
+          >
+            <FaChevronLeft size={20} />
+          </button>
+          
+          <button 
+            onClick={() => scrollManual("right")}
+            className="absolute right-4 top-1/2 -translate-y-1/2 z-30 w-12 h-12 bg-white/20 backdrop-blur-md border border-white/30 rounded-full flex items-center justify-center text-primary shadow-xl opacity-0 group-hover:opacity-100 transition-all duration-500 hover:bg-primary hover:text-white"
+            aria-label="Next"
+          >
+            <FaChevronRight size={20} />
+          </button>
+
+          {/* Slider Container */}
+          <div 
+            ref={scrollRef}
+            className="flex w-full overflow-x-auto no-scrollbar gap-6 px-10 pb-4 scroll-smooth"
+          >
+            {/* Kita menduplikasi array untuk efek infinite scroll */}
+            {[...personil, ...personil].map((member, i) => (
               <div
                 key={i}
                 className="bg-surface-container-lowest rounded-xl p-6 min-w-[240px] md:min-w-[280px] flex-shrink-0 transition-transform duration-300 hover:-translate-y-2 hover:shadow-lg border border-outline-variant/30"
@@ -102,12 +158,12 @@ export default function AboutSection() {
               </div>
             ))}
           </div>
+
+          {/* Fade overlays */}
+          <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-surface-container-low to-transparent pointer-events-none z-10" />
+          <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-surface-container-low to-transparent pointer-events-none z-10" />
         </div>
       )}
-
-      {/* Fade overlay (efek bayangan memudar di kiri dan kanan layar) */}
-      <div className="absolute inset-y-0 left-0 w-16 md:w-32 bg-gradient-to-r from-surface-container-low to-transparent pointer-events-none z-10 bottom-0 top-[300px]" />
-      <div className="absolute inset-y-0 right-0 w-16 md:w-32 bg-gradient-to-l from-surface-container-low to-transparent pointer-events-none z-10 bottom-0 top-[300px]" />
       
     </section>
   );

@@ -49,15 +49,15 @@ export default function GallerySection() {
   return (
     <section className="py-12 px-8" id="galeri">
       <div className="max-w-[1280px] mx-auto">
-        <div className="mb-6">
+        <div className="mb-6 flex flex-col items-center">
           <span className="block font-display text-[0.7rem] font-bold tracking-[0.14em] uppercase text-secondary mb-3">
             Class Galery
           </span>
           <h2 className="font-display text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-[1.2] text-primary">
             Galeri Kelas
           </h2>
-          <p className="font-body text-base lg:text-lg font-normal leading-[1.75] text-on-surface-variant max-w-[520px] mt-3">
-            Jurnal visual dari pertumbuhan bersama, debat seru, dan momen-momen penemuan yang mendefinisikan kelas kita.
+          <p className="font-body text-center lg:text-lg font-normal leading-[1.25] text-on-surface-variant max-w-[520px] mt-3">
+            Jurnal visual dari pertumbuhan bersama, debat seru, dan momen-momen penemuan kelas kami.
           </p>
         </div>
 
