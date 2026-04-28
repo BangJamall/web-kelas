@@ -5,8 +5,8 @@ import { useEffect, useRef, useState } from "react";
 export default function HeroSection() {
   const heroRef = useRef<HTMLDivElement>(null);
   const [stats, setStats] = useState([
-    { num: "0", label: "Siswa Aktif" },
-    { num: "0", label: "Hari Belajar" },
+    { num: "0", label: "Mahasiswa Aktif" },
+    { num: "0", label: "Mata Kuliah" },
     { num: "0", label: "Kegiatan" },
   ]);
 
@@ -61,8 +61,8 @@ export default function HeroSection() {
         const uniqueDays = new Set(jRes.data?.map(item => item.hari) || []);
 
         setStats([
-          { num: (pRes.count || 0).toString(), label: "Siswa Aktif" },
-          { num: (uniqueDays.size || 0).toString(), label: "Hari Belajar" },
+          { num: (pRes.count || 0).toString(), label: "Mahasiswa Aktif" },
+          { num: (uniqueDays.size || 0).toString(), label: "Mata Kuliah" },
           { num: (gRes.count || 0).toString(), label: "Kegiatan" },
         ]);
       } catch (err) {

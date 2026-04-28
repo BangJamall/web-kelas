@@ -90,8 +90,9 @@ export default function AdminDashboard() {
       setEditingGaleriId(null);
       fetchData();
     } catch (err: any) {
-      console.error(err);
-      setUploadStatus("❌ Gagal: " + err.message);
+      console.error("Upload Error Details:", err);
+      const errorMessage = err.message || err.error_description || "Terjadi kesalahan yang tidak diketahui";
+      setUploadStatus("❌ Gagal: " + errorMessage);
     } finally {
       setUploading(false);
     }
@@ -152,8 +153,9 @@ export default function AdminDashboard() {
       setEditingPersonilId(null);
       fetchData();
     } catch (err: any) {
-      console.error(err);
-      setUploadPersonilStatus("❌ Gagal: " + err.message);
+      console.error("Personil Upload Error Details:", err);
+      const errorMessage = err.message || err.error_description || "Terjadi kesalahan saat mengunggah data personil";
+      setUploadPersonilStatus("❌ Gagal: " + errorMessage);
     } finally {
       setUploading(false);
     }
@@ -198,8 +200,9 @@ export default function AdminDashboard() {
       setEditingJadwalId(null);
       fetchData();
     } catch (err: any) {
-      console.error(err);
-      setSubmitJadwalStatus("❌ Gagal: " + err.message);
+      console.error("Jadwal Submit Error Details:", err);
+      const errorMessage = err.message || err.error_description || "Terjadi kesalahan saat menyimpan jadwal";
+      setSubmitJadwalStatus("❌ Gagal: " + errorMessage);
     } finally {
       setUploading(false);
     }

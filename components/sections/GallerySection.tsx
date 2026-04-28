@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import {Calendar} from "lucide-react"
 
 const placeholderColors = [
   "from-[#1A3636] to-[#476363]",
@@ -136,8 +137,8 @@ export default function GallerySection() {
               </h3>
               
               {selectedImage.tanggal && (
-                <div className="flex items-center gap-2 mb-4 text-[0.85rem] font-body text-on-surface-variant bg-surface-container-low w-fit px-3 py-1.5 rounded-md border border-outline-variant/30">
-                  <span>📅</span>
+                <div className="flex items-center gap-2 mb-2 text-[0.85rem] font-body text-on-surface-variant bg-surface-container-low w-fit px-3 py-1.5 rounded-md border border-outline-variant/30">
+                  <Calendar />
                   {new Date(selectedImage.tanggal).toLocaleDateString("id-ID", {
                     day: "numeric",
                     month: "long",
@@ -146,7 +147,7 @@ export default function GallerySection() {
                 </div>
               )}
 
-              <p className="font-body text-[0.95rem] text-on-surface-variant leading-[1.6]">
+              <p className="font-body text-[0.95rem] text-on-surface-variant bg-surface-container-low p-2 rounded-md leading-[1.6]">
                 {selectedImage.deskripsi || "Tidak ada deskripsi tambahan untuk foto ini."}
               </p>
             </div>

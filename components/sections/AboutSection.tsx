@@ -93,7 +93,7 @@ export default function AboutSection() {
       {loading ? (
         <div className="text-center py-10 font-display text-on-surface-variant">Memuat profil personil...</div>
       ) : (
-        <div className="relative w-full overflow-hidden">
+        <div className="relative w-full">
           {/* Navigation Buttons - Muncul saat hover */}
           <button 
             onClick={() => scrollManual("left")}
@@ -114,7 +114,7 @@ export default function AboutSection() {
           {/* Slider Container */}
           <div 
             ref={scrollRef}
-            className="flex w-full overflow-x-auto no-scrollbar gap-6 px-10 pb-4 scroll-smooth"
+            className="flex w-full overflow-x-auto no-scrollbar gap-6 px-10 py-12 scroll-smooth"
           >
             {/* Kita menduplikasi array untuk efek infinite scroll */}
             {[...personil, ...personil].map((member, i) => (

@@ -19,19 +19,19 @@ export default function Footer() {
         {/* Kolom Tengah (ul) */}
         <ul className="flex gap-8 list-none font-display text-[0.8rem] flex-wrap justify-center shrink-0">
           <li>
-            <a href="https://www.instagram.com/binet.smk4/" className="text-[#cae8e8]/60 transition-colors duration-200 hover:text-secondary-container flex justify-center items-center gap-1">
+            <a href="https://www.instagram.com/binet_23?igsh=MWpiZGJlOWtnbzVtYg==" className="text-[#cae8e8]/60 transition-colors duration-200 hover:text-secondary-container flex justify-center items-center gap-1">
             <FaInstagram/>
               Instagram
             </a>
           </li>
           <li>
-            <a href="mailto:[EMAIL_ADDRESS]" className="text-[#cae8e8]/60 transition-colors duration-200 hover:text-secondary-container flex justify-center items-center gap-1">
+            <a href="mailto:teknikmultimediadanjaringan1b@gmail.com" className="text-[#cae8e8]/60 transition-colors duration-200 hover:text-secondary-container flex justify-center items-center gap-1">
               <FaEnvelope/>
               Email
             </a>
           </li>
           <li>
-            <a href="https://www.youtube.com/@binet.smk4" className="text-[#cae8e8]/60 transition-colors duration-200 hover:text-secondary-container flex justify-center items-center gap-1">
+            <a href="https://www.youtube.com/@binet" className="text-[#cae8e8]/60 transition-colors duration-200 hover:text-secondary-container flex justify-center items-center gap-1">
               <FaYoutube/>
               Youtube
             </a>
