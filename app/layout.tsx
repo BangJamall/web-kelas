@@ -3,15 +3,17 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Kelas Binet | The Academic Atelier",
-  description: "Website resmi kelas kami — sebuah ruang untuk rasa ingin tahu intelektual dan penemuan bersama. Dirancang untuk pelajar modern.",
+  description: "Website resmi kelas Binet",
   keywords: ["kelas", "sekolah", "akademik", "jadwal", "galeri", "prestasi"],
   openGraph: {
     title: "Kelas Binet | The Academic Atelier",
-    description: "Website resmi kelas kami — ruang untuk eksplorasi dan kebersamaan.",
+    description: "Website resmi kelas Binet",
     type: "website",
   },
+  icons: {
+    icon: "binet.png",
+  },
 };
-
 
 
 export default function RootLayout({

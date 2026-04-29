@@ -143,7 +143,7 @@ export default function HeroSection() {
           className="hero-animate opacity-0 translate-y-5 transition-all duration-[700ms] delay-[350ms] font-body text-base/7 md:text-lg/8 text-white/85 max-w-[600px] mt-6"
         >
           Sebuah ruang untuk rasa ingin tahu intelektual dan penemuan bersama.
-          Dirancang untuk pelajar modern yang penuh semangat.
+          Kelas Perunggu dan Abadi
         </p>
 
         {/* Actions */}

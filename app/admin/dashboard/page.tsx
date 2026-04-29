@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import {FaBars, FaTimes} from "react-icons/fa"
 
 export default function AdminDashboard() {
   const router = useRouter();
@@ -35,6 +36,8 @@ export default function AdminDashboard() {
   const [editingGaleriId, setEditingGaleriId] = useState<string | null>(null);
   const [editingPersonilId, setEditingPersonilId] = useState<string | null>(null);
   const [editingJadwalId, setEditingJadwalId] = useState<string | null>(null);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -338,8 +341,16 @@ export default function AdminDashboard() {
   return (
     <div className="min-h-screen bg-surface-container-low">
       
+      {/* Overlay untuk layar HP saat menu terbuka */}
+      {isSidebarOpen &&(
+        <div
+          className="fixed inset-0 bg-black/50 z-40 md:hidden"
+          onClick={() => setIsSidebarOpen(false)}
+        />          
+      )}
+
       {/* Sidebar */}
-      <aside className="fixed left-0 top-0 bottom-0 w-[250px] bg-primary py-8 px-6 flex flex-col z-10 transition-transform duration-300">
+      <aside className={`fixed left-0 top-0 bottom-0 w-[250px] bg-primary py-8 px-6 flex flex-col z-50 transition-transform duration-300 md:translate-x-0 ${isSidebarOpen? "translate-x-0": "-translate-x-full"}`}>
         <div className="mb-10">
           <div className="font-display font-extrabold text-[1.1rem] text-primary-fixed tracking-tight">
             Kelas<span className="text-secondary-container">Binet</span>
@@ -367,7 +378,7 @@ export default function AdminDashboard() {
         ].map((item) => (
           <div
             key={item.id}
-            onClick={() => setActiveTab(item.id)}
+            onClick={() => {setActiveTab(item.id); setIsSidebarOpen(false);}}
             className={`
               flex items-center gap-3 py-3 px-4 rounded-md mb-1 cursor-pointer transition-colors duration-200 font-display text-[0.875rem]
               ${activeTab === item.id 
@@ -393,6 +404,7 @@ export default function AdminDashboard() {
           <a
             href="/"
             target="_blank"
+            onClick={() => setIsSidebarOpen(false)}
             className="flex items-center gap-3 py-3 px-4 mt-2 rounded-md font-display text-[0.875rem] text-[#cae8e8]/50 transition-colors duration-200 hover:text-primary-fixed hover:bg-[#cae8e8]/10"
           >
             <span>🌐</span>
@@ -402,7 +414,19 @@ export default function AdminDashboard() {
       </aside>
 
       {/* Main Content */}
-      <main className="mx-30 pl-[250px] p-10 max-w-[1440px]">
+      <main className="w-full transition-all duration-300 md:ml-[250px] p-10 max-w-[1440px]">
+         {/* Tombol Hamburger Menu (Hanya muncul di HP) */}
+  <div className="md:hidden flex items-center justify-between mb-6">
+    <div className="font-display font-extrabold text-[1.25rem] text-primary">
+      Kelas<span className="text-secondary">Binet</span>
+    </div>
+    <button 
+      onClick={() => setIsSidebarOpen(true)}
+      className="p-2 bg-surface-container-low rounded-lg text-primary hover:bg-surface-dim transition"
+    >
+      <FaBars size={24} />
+    </button>
+  </div>
         {activeTab === "beranda" && (
           <div className="animate-in fade-in duration-300">
             {/* Welcome */}

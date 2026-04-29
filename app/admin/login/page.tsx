@@ -61,9 +61,6 @@ export default function AdminLoginPage() {
           <h1 className="font-display text-[1.5rem] font-semibold text-primary mt-1">
             Masuk ke Dashboard
           </h1>
-          <p className="font-body text-[0.9rem] text-on-surface-variant mt-2">
-            Hanya untuk admin kelas yang berwenang.
-          </p>
         </div>
 
         <form onSubmit={handleLogin}>
@@ -82,7 +79,7 @@ export default function AdminLoginPage() {
               onChange={(e) => setEmail(e.target.value)}
               required
               placeholder="admin@example.com"
-              className="w-full px-4 py-3.5 bg-surface-container-high border-none rounded-sm font-body text-[0.9rem] text-on-surface outline-none transition-colors duration-200 focus:bg-primary-fixed"
+              className="w-full px-4 py-3.5 bg-surface-container-high border-none rounded-sm font-body text-[0.9rem] text-on-surface outline-none transition-colors duration-200 focus:bg-primary-fixed round-lg"
             />
           </div>
 
@@ -101,7 +98,7 @@ export default function AdminLoginPage() {
               onChange={(e) => setPassword(e.target.value)}
               required
               placeholder="••••••••"
-              className="w-full px-4 py-3.5 bg-surface-container-high border-none rounded-sm font-body text-[0.9rem] text-on-surface outline-none transition-colors duration-200 focus:bg-primary-fixed"
+              className="w-full px-4 py-3.5 bg-surface-container-high border-none rounded-sm font-body text-[0.9rem] text-on-surface outline-none transition-colors duration-200 focus:bg-primary-fixed round-lg"
             />
           </div>
 
@@ -120,7 +117,7 @@ export default function AdminLoginPage() {
               bg-gradient-to-br from-primary to-primary-container text-on-primary 
               border-none rounded-sm px-8 py-3.5 cursor-pointer transition-all duration-250 
               inline-flex items-center gap-2 
-              hover:from-primary-container hover:to-primary hover:tracking-[0.07em] hover:-translate-y-px hover:shadow-[0_12px_32px_rgba(3,33,33,0.25)]
+              hover:from-primary-container hover:to-primary hover:tracking-[0.07em] hover:-translate-y-px hover:shadow-[0_12px_32px_rgba(3,33,33,0.25)] rounded-lg
               disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:translate-y-0
             `}
           >
