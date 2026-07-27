@@ -12,11 +12,13 @@ const placeholderColors = [
 ];
 
 const spanClasses = [
-  "col-span-1 md:col-span-2 aspect-[16/9]",
+  "col-span-1 md:col-span-2 aspect-[16/9]", // baris 1: 2 + 1 = 3 kolom
+  "aspect-[4/3]",
+  "aspect-[3/4]",                            // baris 2: 1 + 1 + 1 = 3 kolom
+  "aspect-[4/3]",
   "aspect-[3/4]",
-  "aspect-[4/3]",
-  "aspect-[4/3]",
-  "col-span-1 md:col-span-2 aspect-[16/7]"
+  "aspect-[4/3]",                            // baris 3: 1 + 2 = 3 kolom
+  "col-span-1 md:col-span-2 aspect-[16/7]",
 ];
 
 export default function GallerySection() {
@@ -31,7 +33,7 @@ export default function GallerySection() {
         const { data, error } = await supabase
           .from('galeri')
           .select('*')
-          .order('created_at', { ascending: false });
+          .order('tanggal', { ascending: true });
 
         if (error) throw error;
         if (data) {
@@ -62,7 +64,7 @@ export default function GallerySection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 auto-rows-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 auto-rows-auto items-start">
           {loading ? (
              <div className="col-span-1 md:col-span-3 text-center py-10 font-display text-on-surface-variant">Memuat galeri...</div>
           ) : gallery.length === 0 ? (
