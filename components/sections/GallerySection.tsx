@@ -103,59 +103,59 @@ export default function GallerySection() {
       </div>
 
       {/* Modal View */}
-      {selectedImage && (
-        <div 
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#032121]/90 backdrop-blur-sm transition-all duration-300 animate-in fade-in"
-          onClick={() => setSelectedImage(null)}
-        >
-          <div 
-            className="relative w-full max-w-4xl bg-surface-container-lowest rounded-2xl overflow-hidden shadow-2xl flex flex-col md:flex-row max-h-[90vh]"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Close Button */}
-            <button 
-              className="absolute top-4 right-4 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-surface-container-low/80 text-on-surface hover:bg-surface-container transition-colors"
-              onClick={() => setSelectedImage(null)}
-            >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-            </button>
+{/* Modal View */}
+{/* Modal View */}
+{selectedImage && (
+  <div 
+    className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#032121]/90 backdrop-blur-sm transition-all duration-300 animate-in fade-in"
+    onClick={() => setSelectedImage(null)}
+  >
+    <div 
+      className="relative inline-block max-w-[95vw] max-h-[92vh] rounded-2xl overflow-hidden shadow-2xl"
+      onClick={(e) => e.stopPropagation()}
+    >
+      {/* Close Button */}
+      <button 
+        className="absolute top-4 right-4 z-20 w-9 h-9 flex items-center justify-center rounded-full bg-[#032121]/60 text-[#faf9f5] hover:bg-[#032121]/80 transition-colors"
+        onClick={() => setSelectedImage(null)}
+      >
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
 
-            {/* Image Section */}
-            <div className="w-full md:w-2/3 bg-[#132A2A] flex items-center justify-center h-[50vh] md:h-auto md:min-h-[60vh]">
-              <img 
-                src={selectedImage.image_url} 
-                alt={selectedImage.judul} 
-                className="w-full h-full object-contain"
-              />
-            </div>
+      {/* Full Image, ukuran natural dibatasi layar */}
+      <img 
+        src={selectedImage.image_url} 
+        alt={selectedImage.judul} 
+        className="block max-w-[95vw] max-h-[92vh] w-auto h-auto object-contain"
+      />
 
-            {/* Info Section */}
-            <div className="w-full md:w-1/3 p-6 md:p-8 flex flex-col bg-surface-container-lowest overflow-y-auto">
-              <span className="font-display text-[0.7rem] font-bold tracking-[0.14em] uppercase text-secondary mb-2">
-                Momen Kelas
-              </span>
-              <h3 className="font-display text-[1.5rem] font-bold text-primary mb-4 leading-tight">
-                {selectedImage.judul}
-              </h3>
-              
-              {selectedImage.tanggal && (
-                <div className="flex items-center gap-2 mb-2 text-[0.85rem] font-body text-on-surface-variant bg-surface-container-low w-fit px-3 py-1.5 rounded-md border border-outline-variant/30">
-                  <Calendar />
-                  {new Date(selectedImage.tanggal).toLocaleDateString("id-ID", {
-                    day: "numeric",
-                    month: "long",
-                    year: "numeric"
-                  })}
-                </div>
-              )}
+      {/* Gradient Overlay Info */}
+      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#1b1c1a]/90 via-[#1b1c1a]/50 to-transparent p-6 md:p-8">
+        <span className="font-display text-[0.7rem] font-bold tracking-[0.14em] uppercase text-[#fed65b] mb-1 underline decoration-[#fed65b] decoration-2 block">
+          Momen Kelas
+        </span>
+        <h3 className="font-display text-[1.5rem] md:text-[2rem] font-bold text-[#faf9f5] mb-2 leading-tight">
+          {selectedImage.judul}
+        </h3>
 
-              <p className="font-body text-[0.95rem] text-on-surface-variant bg-surface-container-low p-2 rounded-md leading-[1.6]">
-                {selectedImage.deskripsi || "Tidak ada deskripsi tambahan untuk foto ini."}
-              </p>
-            </div>
+        {selectedImage.tanggal && (
+          <div className="flex items-center gap-2 mb-3 text-[0.85rem] font-body text-secondary bg-slate-50 px-2 py-1 rounded-lg w-fit">
+            <Calendar size={16} />
+            {new Date(selectedImage.tanggal).toLocaleDateString("id-ID", {
+              day: "numeric",
+              month: "long",
+              year: "numeric"
+            })}
           </div>
-        </div>
-      )}
+        )}
+
+        <p className="font-body text-[0.95rem] text-[#faf9f5]/85 leading-[1.6] max-w-2xl">
+          {selectedImage.deskripsi || "Tidak ada deskripsi tambahan untuk foto ini."}
+        </p>
+      </div>
+    </div>
+  </div>
+)}
     </section>
   );
 }
