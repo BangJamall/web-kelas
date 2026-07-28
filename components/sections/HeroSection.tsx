@@ -105,7 +105,7 @@ export default function HeroSection() {
       id="home"
       ref={heroRef}
       className={`
-        relative min-h-[100svh] flex items-center justify-center text-center
+        relative min-h-[100svh] flex flex-col items-center justify-center text-center
         bg-[url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2070&auto=format&fit=crop')]
         bg-cover bg-center bg-fixed
       `}
@@ -113,7 +113,7 @@ export default function HeroSection() {
       {/* Overlay: Memainkan opacity dan warna supaya teks tetap kontras */}
       <div className="absolute inset-0 z-[1] bg-gradient-to-b from-[#032121]/75 to-[#1A3636]/90" />
 
-      <div className="relative z-[2] flex flex-col items-center max-w-[800px] w-full px-8 pt-20">
+      <div className="relative z-[2] flex flex-col items-center max-w-[800px] w-full px-8 py-10 md:py-18">
         {/* Badge */}
         <div className="hero-animate opacity-0 translate-y-5 transition-all duration-[600ms] delay-100 mb-8 inline-flex items-center gap-2 font-display text-[0.7rem] font-bold tracking-[0.12em] uppercase bg-white/10 border border-white/20 text-surface px-4 py-1.5 rounded-full">
           <span>✦</span>
@@ -169,13 +169,13 @@ export default function HeroSection() {
         </div>
 
         {/* Stats */}
-        <div className="hero-animate opacity-0 translate-y-5 transition-all duration-[700ms] delay-[650ms] mt-5 pt-5 border-t border-white/15 w-full flex justify-center gap-8 md:gap-14">
+        <div className="hero-animate opacity-0 translate-y-5 transition-all duration-[700ms] delay-[650ms] mt-8 pt-6 border-t border-white/15 w-full flex flex-wrap justify-center gap-6 md:gap-14">
           {stats.map((stat) => (
-            <div key={stat.label} className="flex flex-col items-center">
+            <div key={stat.label} className="flex flex-col items-center min-w-[100px]">
               <div className="font-display text-[1.75rem] md:text-[2rem] font-extrabold text-white leading-none">
                 {stat.num}
               </div>
-              <div className="font-body text-[0.75rem] md:text-[0.8rem] text-white/70 mt-1 md:mt-1.5 leading-snug">
+              <div className="font-body text-[0.75rem] md:text-[0.8rem] text-white/70 mt-1 md:mt-1.5 leading-snug text-center whitespace-nowrap">
                 {stat.label}
               </div>
             </div>
