@@ -17,7 +17,7 @@ jobs:
         # sudah memiliki izin untuk menjalankan perintah docker tanpa sudo.
         run: |
           # 1. Timpa kode lama di /opt/bnet/ dengan kode terbaru dari GitHub
-          cp -a . /opt/bnet/
+          rsync -av --exclude='.git' ./ /opt/bnet/
             
           # 2. Pindah ke direktori kerja Anda
           cd /opt/bnet/
