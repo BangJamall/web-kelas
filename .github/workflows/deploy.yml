@@ -12,22 +12,21 @@ jobs:
     steps:
       - name: 📥 Ambil Kode Terbaru dari GitHub
         uses: actions/checkout@v4
-
       - name: 🐳 Rebuild & Restart Docker Container
         # Karena runner berjalan sebagai 'runner-user', pastikan user tersebut 
         # sudah memiliki izin untuk menjalankan perintah docker tanpa sudo.
-          run: |
-            # 1. Timpa kode lama di /opt/bnet/ dengan kode terbaru dari GitHub
-            cp -a . /opt/bnet/
+        run: |
+          # 1. Timpa kode lama di /opt/bnet/ dengan kode terbaru dari GitHub
+          cp -a . /opt/bnet/
             
-            # 2. Pindah ke direktori kerja Anda
-            cd /opt/bnet/
+          # 2. Pindah ke direktori kerja Anda
+          cd /opt/bnet/
             
-            # 3. Eksekusi Docker
-            docker-compose down
+          # 3. Eksekusi Docker
+          docker-compose down
             
-            docker-compose build \
-              --build-arg NEXT_PUBLIC_SUPABASE_URL="${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}" \
-              --build-arg NEXT_PUBLIC_SUPABASE_ANON_KEY="${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}"
+          docker-compose build \
+            --build-arg NEXT_PUBLIC_SUPABASE_URL="${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}" \
+            --build-arg NEXT_PUBLIC_SUPABASE_ANON_KEY="${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}"
               
-            docker-compose up -d
+          docker-compose up -d
