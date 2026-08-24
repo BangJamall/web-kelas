@@ -1,4 +1,4 @@
-name: Deploy Next.js via Docker
+name: Deploy Binet via Docker
 
 on:
   push:
@@ -15,21 +15,18 @@ jobs:
         
       - name: 🐳 Rebuild & Restart Docker Container
         run: |
-          # 1. Timpa kode lama di /opt/bnet/ dengan kode terbaru dari GitHub
           rsync -av --exclude='.git' ./ /opt/bnet/
-          
-          # 2. Pindah ke direktori kerja Anda
           cd /opt/bnet/
           
-          # 3. Eksekusi Docker
           docker-compose down
           
-          # 4. Baca .env dan Build
-          # Tanda kutip penutup (") sudah ditambahkan di baris ANON_KEY
+          # 1. Hapus image lama (opsional, tapi bagus untuk memastikan)
+          docker image prune -a -f
+          
+          # 2. Tambahkan --no-cache agar Next.js dipaksa membaca variabel baru
           export $(grep -v '^#' .env | xargs) && \
-          docker-compose build \
+          docker-compose build --no-cache \
             --build-arg NEXT_PUBLIC_SUPABASE_URL="${NEXT_PUBLIC_SUPABASE_URL}" \
             --build-arg NEXT_PUBLIC_SUPABASE_ANON_KEY="${NEXT_PUBLIC_SUPABASE_ANON_KEY}"
             
-          # 5. Jalankan Container
           docker-compose up -d
